@@ -1,18 +1,12 @@
-const express = require("express");
-const http = require("http");
-const mongoose = require("mongoose");
-
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const dotenv = require("dotenv");
 
 
-
 const userSchema = require("../schemas/userSchema")
 
 const saltRounds = 10;
-const myPlaintextPassword = 's0/\/\P4$$w0rD';
 dotenv.config();
 
 
@@ -23,24 +17,21 @@ const registrationService = async (req, res, next) => {
         const body = req.body;
 
         if (!body.email) {
-            return res.status(400).json({ message: `${body.email} is mandatory in request body.` });
+            return res.status(400).json({ message: "email is mandatory in request body." });
         };
         if (!body.name) {
-            return res.status(400).json({ message: `${body.name} is mandatory in request body.` });
+            return res.status(400).json({ message: "name is mandatory in request body." });
         };
         if (!body.password) {
-            return res.status(400).json({ message: `${body.password} is mandatory in request body.` });
+            return res.status(400).json({ message: "password is mandatory in request body." });
         };
 
-        let hashpassword = "";
-        bcrypt.hash(myPlaintextPassword, saltRounds, function (err, hash) {
-            hashpassword = hash;
-        });
+        const hashpassword = await bcrypt.hash(body.password, saltRounds);
 
         const createUser = await userSchema.create({
             email: body.email,
             name: body.name,
-            password: body.hashpassword,
+            password: hashpassword,
         });
 
 
@@ -58,29 +49,33 @@ const loginService = async (req, res, next) => {
         const body = req.body;
 
         if (!body.email) {
-            return res.status(400).json({ message: `${body.email} is mandatory in request body.` });
+            return res.status(400).json({ message: "email is mandatory in request body." });
         };
         if (!body.password) {
-            return res.status(400).json({ message: `${body.password} is mandatory in request body.` });
-        };
-
-        let result = false;
-        bcrypt.compare(myPlaintextPassword, hash, function (err, result) {
-            result == true
-        });
-
-        if (!result) {
-            return res.status(400).json({ message: "Incorrect password." });
+            return res.status(400).json({ message: "password is mandatory in request body." });
         };
 
         const createUser = await userSchema.findOne({
             email: body.email,
         });
 
+        if (!createUser) {
+            return res.status(400).json({ message: "Incorrect password." });
+        };
+
+        const result = await bcrypt.compare(body.password, createUser.password);
+
+        if (!result) {
+            return res.status(400).json({ message: "Incorrect password." });
+        };
 
         const token = jwt.sign({
             exp: Math.floor(Date.now() / 1000) + (60 * 60),
-            data: createUser
+            data: {
+                id: createUser._id,
+                email: createUser.email,
+                name: createUser.name,
+            }
         }, process.env.JWT_SECRET);
 
 
@@ -95,3 +90,4 @@ const loginService = async (req, res, next) => {
 
 exports.registrationService = registrationService;
 exports.loginService = loginService;
+

@@ -1,4 +1,4 @@
-const redis = require("../redis");
+const { redis } = require("../redis");
 
 const MAX_ATTEMPTS = 5;
 const WINDOW = 60; //1 minute;

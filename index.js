@@ -16,7 +16,7 @@ const { authMiddleWare } = require('./config/middleware.js/auth');
 dotenv.config();
 
 const app = express();
-const server = http.createServer();
+const server = http.createServer(app);
 
 
 app.use(express.json());
