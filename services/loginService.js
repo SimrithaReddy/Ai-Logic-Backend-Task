@@ -5,11 +5,9 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+const dotenv = require("dotenv");
 
-// import bcrypt from "bcrypt";
-// import jwt from "jsonwebtoken";
 
-// import userSchema from "../schemas/userSchema";
 
 const userSchema = require("../schemas/userSchema")
 
@@ -20,7 +18,7 @@ dotenv.config();
 
 
 
-export const registrationService = async (req, res, next) => {
+const registrationService = async (req, res, next) => {
     try {
         const body = req.body;
 
@@ -55,7 +53,7 @@ export const registrationService = async (req, res, next) => {
 };
 
 
-export const loginService = async (req, res, next) => {
+const loginService = async (req, res, next) => {
     try {
         const body = req.body;
 
@@ -93,3 +91,7 @@ export const loginService = async (req, res, next) => {
         return res.status(500).json({ message: error.message });
     }
 };
+
+
+exports.registrationService = registrationService;
+exports.loginService = loginService;

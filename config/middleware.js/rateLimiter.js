@@ -5,7 +5,7 @@ const WINDOW = 60; //1 minute;
 
 
 
-export const loginRatelimiter = async (req, res, next) => {
+const loginRatelimiter = async (req, res, next) => {
     try {
         const ip = req.ip;
 
@@ -27,10 +27,10 @@ export const loginRatelimiter = async (req, res, next) => {
 
     }
     catch (error) {
-            return res.status(500).json({ message: error.message });
+        return res.status(500).json({ message: error.message });
     }
 };
 
-
+exports.loginRatelimiter = loginRatelimiter
 
 

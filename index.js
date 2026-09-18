@@ -8,7 +8,7 @@ const http = require("http");
 const mongoose = require("mongoose");
 
 const dotenv = require("dotenv");
-const { registrationService } = require('./services/loginService');
+const { registrationService, loginService } = require('./services/loginService');
 const { loginRatelimiter } = require('./config/middleware.js/rateLimiter');
 const { authMiddleWare } = require('./config/middleware.js/auth');
 
