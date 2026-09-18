@@ -1,7 +1,7 @@
 const redis = require("../redis");
 
 const MAX_ATTEMPTS = 5;
-const WINDOW = 60; //1min;
+const WINDOW = 60; //1 minute;
 
 
 
@@ -27,7 +27,7 @@ export const loginRatelimiter = async (req, res, next) => {
 
     }
     catch (error) {
-        throw Error(error.message);
+            return res.status(500).json({ message: error.message });
     }
 };
 

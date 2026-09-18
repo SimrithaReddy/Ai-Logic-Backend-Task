@@ -2,7 +2,7 @@ import userSchema from "../schemas/userSchema";
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const myPlaintextPassword = 's0/\/\P4$$w0rD';
-
+const jwt = require("jsonwebtoken");
 
 export const registrationService = async (req, res, next) => {
     try {
@@ -32,8 +32,6 @@ export const registrationService = async (req, res, next) => {
         });
 
 
-        console.log(createUser);
-
         return res.status(200).json({ message: "User created successfully." });
 
     }
@@ -43,3 +41,39 @@ export const registrationService = async (req, res, next) => {
 };
 
 
+export const loginService = async (req, res, next) => {
+    try {
+        const body = req.body;
+
+        const errMsg = "is mandatory in request body.";
+
+        if (!body.email) {
+            return res.status(400).json({ message: `${body.email} ${errMsg}` });
+        };
+        if (!body.password) {
+            return res.status(400).json({ message: `${body.password} ${errMsg}` });
+        };
+
+        let result = false;
+        bcrypt.compare(myPlaintextPassword, hash, function (err, result) {
+            result == true
+        });
+
+        if (!result) {
+            return res.status(400).json({ message: "Incorrect password." });
+        };
+
+        const createUser = await userSchema.findOne({
+            email: body.email,
+        });
+
+        const token = jwt.create(createUser)
+
+
+        return res.status(200).json({ message: token });
+
+    }
+    catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+};
