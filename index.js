@@ -3,7 +3,6 @@ import http from "http";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 
-
 const { registrationService } = require('./services/loginService');
 const { loginRatelimiter } = require('./config/middleware.js/rateLimiter');
 const { authMiddleWare } = require('./config/middleware.js/auth');
@@ -15,7 +14,7 @@ const app = express();
 const server = http.createServer();
 
 
-app.use(express.json())
+app.use(express.json());
 
 app.post("/add-user", registrationService);
 app.get("/login", loginRatelimiter, loginService);

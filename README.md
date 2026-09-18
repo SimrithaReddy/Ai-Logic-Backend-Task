@@ -22,3 +22,7 @@ Submission Requirements
 Create a Git repository and push the project to GitHub.
 Include a README.md containing:
 Include a .env file with the required environment variables.
+
+.env file
+MONGO_URI=mongodb://localhost:27017/;
+JWT_SECRET=1234567890
