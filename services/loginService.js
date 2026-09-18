@@ -1,10 +1,13 @@
-import express from "express";
-import http from "http";
-import dotenv from "dotenv";
-import mongoose from "mongoose";
+const express = require("express");
+const http = require("http");
+const mongoose = require("mongoose");
 
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
+
+// import bcrypt from "bcrypt";
+// import jwt from "jsonwebtoken";
 
 import userSchema from "../schemas/userSchema";
 

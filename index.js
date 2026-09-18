@@ -1,8 +1,13 @@
-import express from "express";
-import http from "http";
-import dotenv from "dotenv";
-import mongoose from "mongoose";
+// import express from "express";
+// import http from "http";
+// import http from "dotenv";
+// import mongoose from "mongoose";
 
+const express = require("express");
+const http = require("http");
+const mongoose = require("mongoose");
+
+const dotenv = require("dotenv");
 const { registrationService } = require('./services/loginService');
 const { loginRatelimiter } = require('./config/middleware.js/rateLimiter');
 const { authMiddleWare } = require('./config/middleware.js/auth');
@@ -31,7 +36,10 @@ server.listen(3000, () => {
     console.log("Server running on port 3000........")
 });
 
-await mongoose.connect(process.env.MONGO_URI);
 
 
+async function connectMongo(){
+    await mongoose.connect(process.env.MONGO_URI)
+};
 
+connectMongo()

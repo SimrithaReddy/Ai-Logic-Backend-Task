@@ -1,5 +1,10 @@
 const mongoose = require("mongoose");
+const express = require("express");
+const http = require("http");
+const mongoose = require("mongoose");
 
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 
 const userSchema = new mongoose.Schema({

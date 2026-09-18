@@ -1,6 +1,13 @@
-import dotenv from "dotenv";
-import jwt from "jsonwebtoken";
+// import dotenv from "dotenv";
+// import jwt from "jsonwebtoken";
+const mongoose = require("mongoose");
+const express = require("express");
+const http = require("http");
+const mongoose = require("mongoose");
 
+const bcrypt = require("bcrypt");
+const dotenv = require("dotenv");
+const jwt = require("jsonwebtoken");
 dotenv.config();
 
 export const authMiddleWare = async (req, res, next) => {
