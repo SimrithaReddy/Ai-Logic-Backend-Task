@@ -9,11 +9,12 @@ const jwt = require("jsonwebtoken");
 // import bcrypt from "bcrypt";
 // import jwt from "jsonwebtoken";
 
-import userSchema from "../schemas/userSchema";
+// import userSchema from "../schemas/userSchema";
+
+const userSchema = require("../schemas/userSchema")
 
 const saltRounds = 10;
 const myPlaintextPassword = 's0/\/\P4$$w0rD';
-const jwt = require("jsonwebtoken");
 dotenv.config();
 
 
