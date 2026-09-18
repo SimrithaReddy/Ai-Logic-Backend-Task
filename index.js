@@ -1,7 +1,9 @@
-const express = require('express');
-const http = require('http');
-const dotenv = require("dotenv");
-const { default: mongoose } = require('mongoose');
+import express from "express";
+import http from "http";
+import dotenv from "dotenv";
+import mongoose from "mongoose";
+
+
 const { registrationService } = require('./services/loginService');
 const { loginRatelimiter } = require('./config/middleware.js/rateLimiter');
 const { authMiddleWare } = require('./config/middleware.js/auth');
@@ -13,7 +15,7 @@ const app = express();
 const server = http.createServer();
 
 
-
+app.use(express.json())
 
 app.post("/add-user", registrationService);
 app.get("/login", loginRatelimiter, loginService);
@@ -30,9 +32,7 @@ server.listen(3000, () => {
     console.log("Server running on port 3000........")
 });
 
-// mongoose.connect(process.env.MONGO_URI,{
-//     directConnection:true,
-// });
+await mongoose.connect(process.env.MONGO_URI);
 
 
 

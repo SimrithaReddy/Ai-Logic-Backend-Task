@@ -1,23 +1,33 @@
+import express from "express";
+import http from "http";
+import dotenv from "dotenv";
+import mongoose from "mongoose";
+
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+
 import userSchema from "../schemas/userSchema";
-const bcrypt = require('bcrypt');
+
 const saltRounds = 10;
 const myPlaintextPassword = 's0/\/\P4$$w0rD';
 const jwt = require("jsonwebtoken");
+dotenv.config();
+
+
+
 
 export const registrationService = async (req, res, next) => {
     try {
         const body = req.body;
 
-        const errMsg = "is mandatory in request body.";
-
         if (!body.email) {
-            return res.status(400).json({ message: `${body.email} ${errMsg}` });
+            return res.status(400).json({ message: `${body.email} is mandatory in request body.` });
         };
         if (!body.name) {
-            return res.status(400).json({ message: `${body.name} ${errMsg}` });
+            return res.status(400).json({ message: `${body.name} is mandatory in request body.` });
         };
         if (!body.password) {
-            return res.status(400).json({ message: `${body.password} ${errMsg}` });
+            return res.status(400).json({ message: `${body.password} is mandatory in request body.` });
         };
 
         let hashpassword = "";
@@ -45,13 +55,11 @@ export const loginService = async (req, res, next) => {
     try {
         const body = req.body;
 
-        const errMsg = "is mandatory in request body.";
-
         if (!body.email) {
-            return res.status(400).json({ message: `${body.email} ${errMsg}` });
+            return res.status(400).json({ message: `${body.email} is mandatory in request body.` });
         };
         if (!body.password) {
-            return res.status(400).json({ message: `${body.password} ${errMsg}` });
+            return res.status(400).json({ message: `${body.password} is mandatory in request body.` });
         };
 
         let result = false;
@@ -67,7 +75,11 @@ export const loginService = async (req, res, next) => {
             email: body.email,
         });
 
-        const token = jwt.create(createUser)
+
+        const token = jwt.sign({
+            exp: Math.floor(Date.now() / 1000) + (60 * 60),
+            data: createUser
+        }, process.env.JWT_SECRET);
 
 
         return res.status(200).json({ message: token });
