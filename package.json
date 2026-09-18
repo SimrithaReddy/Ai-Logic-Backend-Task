@@ -1,0 +1,33 @@
+{
+  "name": "ai-logic-neural-networks",
+  "version": "1.0.0",
+  "description": "Stack\r Node.js + TypeScript/JavaScript\r Express.js / Fastify\r PostgreSQL\r Sequelize / Prisma\r Redis\r REST API\r Requirements\r Implement User registration and login.\r Implement JWT-based authentication.\r Create protected APIs that require authentication.\r Implement a Redis-based API rate limiter.\r Allow a maximum of 5 login attempts per IP within 1 minute.\r Temporarily block further login attempts after the limit is exceeded.\r Use Redis TTL/expiration for rate-limit management.\r Implement proper HTTP status codes such as 429 Too Many Requests.\r Store user information in PostgreSQL using Sequelize/Prisma.\r Implement secure password hashing.\r Handle Redis failures gracefully.\r Follow a clean, scalable, and modular project structure.\r Submission Requirements\r Create a Git repository and push the project to GitHub.\r Include a README.md containing:\r Include a .env file with the required environment variables.",
+  "main": "index.js",
+  "scripts": {
+    "start": "index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SimrithaReddy/Ai-Logic-Backend-Task.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SimrithaReddy/Ai-Logic-Backend-Task/issues"
+  },
+  "homepage": "https://github.com/SimrithaReddy/Ai-Logic-Backend-Task#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "body-parser": "^2.3.0",
+    "dotenv": "^18.0.0",
+    "express": "^5.2.1",
+    "httpserver": "^0.3.0",
+    "ioredis": "^6.0.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.4.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6"
+  }
+}
