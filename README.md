@@ -26,3 +26,6 @@ Include a .env file with the required environment variables.
 .env file
 MONGO_URI=mongodb://localhost:27017/;
 JWT_SECRET=1234567890
+
+
+#RUN COMMAND: npm start
